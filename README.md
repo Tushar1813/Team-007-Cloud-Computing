@@ -1,304 +1,373 @@
 Team-007-Cloud-Computing
-Cloud Computing Full Stack Project (Spring Boot + AWS Cloud Architecture)
-📌 Overview
+# Cloud Computing Full Stack Project (Spring Boot)
 
-This project is a Full Stack Spring Boot Application deployed using modern AWS cloud services.
+## Overview
 
-The application demonstrates:
+This project is a **Java Spring Boot Full Stack Application** developed as part of a **Cloud Computing academic project**. The application demonstrates how a modern web application can be developed and deployed using cloud technologies.
 
-Full Stack Web Development
+The project uses **Spring Boot** for backend development and REST APIs to handle client requests. The application is deployed on AWS cloud and containerized using Docker.
 
-Cloud Native Deployment
+This project demonstrates practical implementation of:
 
-Containerization using Docker
+- Full Stack Development
+- Cloud Deployment
+- Virtual Machines
+- Containerization using Docker
+- Continuous Integration using Jenkins
 
-CI/CD Integration
+---
 
-Production-grade AWS architecture
+## Cloud Architecture
 
-🏗️ Final Cloud Architecture
-User
-   ↓
-Route 53 (Domain)
-   ↓
-CloudFront (CDN)
-   ↓
-S3 (Frontend Hosting)
-   ↓
-API Gateway
-   ↓
-ECS / EKS (Spring Boot Docker Container)
-   ↓
-RDS (MySQL Database)
+This project is deployed on AWS using a scalable cloud architecture.
 
-Services Used:
+### Frontend Deployment
+- Amazon S3 (Static Website Hosting)
+- CloudFront Distribution
+- Route 53 Domain Management
 
-Amazon S3
+### Backend Deployment
+- API Gateway
+- ECS/EKS Container Services
+- Docker Containers
+- RDS Database
 
-Amazon CloudFront
+---
 
-Amazon Route 53
+## Objectives
 
-Amazon API Gateway
+- Understand Full Stack Web Development
+- Learn Spring Boot Framework
+- Implement REST APIs
+- Learn AWS Cloud Deployment
+- Learn Docker Containerization
+- Understand CI/CD using Jenkins
+- Gain practical Cloud Computing knowledge
 
-Amazon ECS or Amazon EKS
+---
 
-Amazon RDS
+## Technologies Used
 
-Amazon Elastic Container Registry
+### Backend
+- Java
+- Spring Boot
+- REST API
+- Maven
 
-🎯 Objectives
+### Frontend
+- HTML
+- CSS
+- JavaScript
 
-Understand Full Stack Web Development
+### Cloud & DevOps
+- AWS S3
+- AWS CloudFront
+- AWS Route 53
+- AWS API Gateway
+- AWS ECS/EKS
+- AWS RDS
+- Docker
+- Jenkins
+- Git
+- GitHub
 
-Build REST APIs using Spring Boot
+---
 
-Containerize application using Docker
+## Features
 
-Deploy frontend using S3 + CloudFront
+- Full Stack Web Application
+- REST API Implementation
+- Backend Development using Spring Boot
+- Database Integration
+- Cloud Deployment on AWS
+- Docker Container Support
+- CI/CD Pipeline using Jenkins
+- Scalable Architecture
 
-Deploy backend using ECS/EKS
+---
 
-Connect RDS database securely
+## Project Structure
 
-Implement CI/CD using Jenkins
+```
 
-Understand modern cloud architecture
+JAVA\_spring\_boot\_Fullstack\_project
 
-💻 Technologies Used
-Backend
-
-Java
-
-Spring Boot
-
-REST APIs
-
-Maven
-
-MySQL
-
-Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-Cloud & DevOps
-
-AWS Cloud
-
-Docker
-
-Jenkins
-
-GitHub
-
-📁 Updated Project Structure
-Cloud-Computing-Project
 │
-├── backend/
-│   ├── controller/
-│   ├── service/
-│   ├── repository/
-│   ├── resources/
-│   ├── Dockerfile
-│   └── pom.xml
-│
-├── frontend/
-│   ├── index.html
-│   ├── css/
-│   ├── js/
-│   └── Dockerfile (optional)
-│
-└── docker-compose.yml
-🐳 Docker Configuration
-Backend Dockerfile
+
+├── src/
+
+├── controller/
+
+├── service/
+
+├── repository/
+
+├── resources/
+
+└── pom.xml
+
+```
+
+---
+
+## How to Run the Project Locally
+
+### Step 1: Clone Repository
+
+```
+git clone https://github.com/Rahul1062005/Cloud-Computing-Project.git
+```
+
+### Step 2: Open Project
+
+Open the project in:
+
+- IntelliJ IDEA
+- Eclipse IDE
+
+### Step 3: Run Application
+
+Run the Spring Boot Application.
+
+### Step 4: Open Browser
+
+```
+http://localhost:8080
+```
+
+---
+
+# AWS Deployment Steps
+
+## Frontend Deployment (S3 + CloudFront + Route53)
+
+### Step 1: Create S3 Bucket
+
+1. Login to AWS Console
+2. Go to S3 Service
+3. Create Bucket
+4. Enable Static Website Hosting
+5. Upload frontend files
+
+---
+
+### Step 2: Configure Bucket Permissions
+
+Allow public access for static website hosting.
+
+---
+
+### Step 3: Create CloudFront Distribution
+
+1. Go to CloudFront
+2. Create Distribution
+3. Select S3 bucket as origin
+4. Enable caching
+5. Deploy distribution
+
+---
+
+### Step 4: Configure Route53
+
+1. Go to Route53
+2. Create Hosted Zone
+3. Add domain name
+4. Create A record
+5. Point domain to CloudFront Distribution
+
+---
+
+# Backend Deployment (ECS/EKS + API Gateway + RDS)
+
+## Step 1: Create RDS Database
+
+1. Go to RDS Service
+2. Create Database
+3. Select MySQL/PostgreSQL
+4. Configure username and password
+5. Allow access from ECS/EKS
+
+---
+
+## Step 2: Create Docker Image
+
+Create Dockerfile:
+
+```
 FROM openjdk:17
 COPY target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
+```
 
-Build:
+Build Image:
 
-mvn clean package
+```
 docker build -t springboot-app .
-☁️ Cloud Deployment Procedure (Updated)
-🟢 PART 1 — Database Deployment (RDS)
-Step 1: Create Database
+```
 
-Go to:
-Amazon RDS → Create Database
+---
 
-Engine: MySQL
-Instance: db.t3.micro
-Public Access: NO
-VPC: Default or Custom
+## Step 3: Push Image to ECR
 
-Allow inbound access only from ECS security group.
+```
+aws ecr create-repository --repository-name springboot-app
+```
 
-Save:
+Tag Image:
 
-Endpoint
+```
+docker tag springboot-app repository-url
+```
 
-DB username
+Push Image:
 
-Password
+```
+docker push repository-url
+```
 
-🟢 PART 2 — Backend Deployment (ECS + ECR)
-Step 1: Push Docker Image to ECR
+---
 
-Create repository in:
-Amazon Elastic Container Registry
+## Step 4: Deploy Backend to ECS/EKS
 
-Login & push:
+1. Go to ECS or EKS
+2. Create Cluster
+3. Create Task Definition
+4. Select Docker Image
+5. Configure Ports (8080)
+6. Run Service
 
-aws ecr get-login-password --region ap-south-1 | docker login ...
-docker tag springboot-app:latest <account-id>.dkr.ecr.../repo:latest
-docker push <account-id>.dkr.ecr.../repo:latest
-Step 2: Deploy Backend in ECS
+---
 
-Go to:
-Amazon ECS → Create Cluster
+## Step 5: Configure API Gateway
 
-Use:
-Fargate (Serverless)
+1. Go to API Gateway
+2. Create API
+3. Add HTTP Methods
+4. Connect API Gateway to ECS/EKS service
+5. Deploy API
 
-Create Task Definition:
+---
 
-Image: ECR image URI
+## Step 6: Access Backend
 
-Port: 8080
+```
+https://api-gateway-url
+```
 
-Environment Variables:
+---
 
-DB_HOST
+# Docker Deployment Steps
 
-DB_USER
+## Step 1: Install Docker
 
-DB_PASS
+### Ubuntu
 
-Create Service:
-Attach Application Load Balancer.
+```
+sudo apt update
+sudo apt install docker.io -y
+```
 
-🟢 PART 3 — API Gateway Setup
+### Amazon Linux
 
-Go to:
-Amazon API Gateway → Create REST API
+```
+sudo yum install docker -y
+sudo service docker start
+```
 
-Create Resource: /api
+Enable Docker:
 
-Create Method: ANY
+```
+sudo systemctl enable docker
+```
 
-Integration Type: HTTP
+---
 
-Endpoint: Load Balancer URL
+## Step 2: Create Dockerfile
 
-Enable CORS.
+Create a file named:
 
-Deploy API.
+```
+Dockerfile
+```
 
-🟢 PART 4 — Frontend Deployment (S3 + CloudFront)
-Step 1: Upload Frontend to S3
+Add:
 
-Create S3 bucket
+```
+FROM openjdk:17
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
 
-Enable Static Website Hosting
+---
 
-Upload HTML, CSS, JS files
+## Step 3: Build Docker Image
 
-Step 2: Create CloudFront Distribution
+```
+docker build -t springboot-app .
+```
 
-Origin:
-S3 bucket
+---
 
-Enable:
+## Step 4: Run Docker Container
 
-HTTPS only
+```
+docker run -d -p 8080:8080 springboot-app
+```
 
-Redirect HTTP → HTTPS
+---
 
-Step 3: Connect Domain using Route 53
+## Step 5: Open Application
 
-Create Hosted Zone
+```
+http://localhost:8080
+```
 
-Add A Record
+---
 
-Point to CloudFront Distribution
+# Jenkins CI/CD Steps
 
-🔐 Security Configuration
+### Step 1
 
-RDS in private subnet
+Install Jenkins.
 
-ECS in private subnet
+### Step 2
 
-Use IAM roles (not access keys)
+Create New Job.
 
-Enable HTTPS
-
-Restrict security groups
-
-Store secrets in AWS Secrets Manager
-
-🔄 CI/CD Using Jenkins
-Step 1
-
-Install Jenkins on EC2.
-
-Step 2
+### Step 3
 
 Connect GitHub Repository.
 
-Step 3
+### Step 4
 
-Add Build Steps:
+Add Build Command:
 
-mvn clean package
-docker build -t app .
-docker push <ECR-Repo>
-Step 4
+```
+mvn clean install
+```
 
-Trigger ECS redeployment.
+### Step 5
 
-🌐 Final Access URLs
+Build Project.
 
-Frontend:
+---
 
-https://yourdomain.com
+## Learning Outcomes
 
-Backend API:
+Through this project I learned:
 
-https://api-id.execute-api.region.amazonaws.com/prod
+- Full Stack Development
+- Spring Boot Framework
+- Cloud Computing Concepts
+- AWS Deployment
+- Docker Containerization
+- Jenkins CI/CD Pipeline
+- GitHub Version Control
 
-Database:
-Private RDS endpoint (internal only).
+---
 
-🎓 Learning Outcomes (Updated)
+## Author
 
-Through this project, we learned:
-
-Cloud-native full stack development
-
-Containerized deployment
-
-AWS production architecture
-
-Secure database configuration
-
-API Gateway integration
-
-CDN implementation
-
-CI/CD pipeline automation
-
-Scalable backend deployment
-
-👨‍💻 Author
-Tushar Thakur
-Rahul Kumar
-Rudra nayak
-Samit
-
-B.Tech Computer Science Engineering
+Rahul Kumar  
+B.Tech Computer Science Engineering  
 Cloud Computing Project
