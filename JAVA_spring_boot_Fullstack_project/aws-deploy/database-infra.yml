@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Database Infrastructure: RDS MySQL scaffold'
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC to deploy RDS into
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: Subnets for DB Subnet Group
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Description: Password for the RDS master user
+
+Resources:
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow database access from Backend ECS tasks
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 10.0.0.0/16 # Example: Restrict to VPC CIDR
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for MySQL RDS
+      SubnetIds: !Ref SubnetIds
+
+  MySQLInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: mysql
+      EngineVersion: '8.0'
+      DBInstanceClass: db.t3.micro
+      AllocatedStorage: 20
+      DBName: demo
+      MasterUsername: root
+      MasterUserPassword: !Ref DBPassword
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+      PubliclyAccessible: false
+      MultiAZ: false # Set to true for production high-availability
+
+Outputs:
+  DatabaseEndpoint:
+    Description: 'RDS Endpoint Address'
+    Value: !GetAtt MySQLInstance.Endpoint.Address
+  DatabasePort:
+    Description: 'RDS Port'
+    Value: !GetAtt MySQLInstance.Endpoint.Port
