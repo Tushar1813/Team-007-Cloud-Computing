@@ -322,3 +322,7 @@ Through this project I learned:
 Rahul Kumar  
 B.Tech Computer Science Engineering  
 Cloud Computing Project
+
+Rudra Narayan Nayak
+B.Tech Computer Science Engineering  
+Cloud Computing Project
