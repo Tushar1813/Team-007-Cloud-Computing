@@ -1,4 +1,4 @@
-## Team-007-Cloud-Computing
+## Team-007-Cloud-Computing.
 ## Cloud Computing Full Stack Project (Spring Boot)
 
 ## Overview
@@ -323,6 +323,3 @@ Rahul Kumar
 B.Tech Computer Science Engineering  
 Cloud Computing Project
 
-Rudra Narayan Nayak
-B.Tech Computer Science Engineering  
-Cloud Computing Project
